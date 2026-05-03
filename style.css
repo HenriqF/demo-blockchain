@@ -1,14 +1,31 @@
 textarea{
-    min-width: 470px;
+    resize: none;
 }
 
 .data-input{
     height: 7em;
+    width: 470px;
 
 }
 .nonce-output, .hash-output, .previous-hash-output, .assinatura-input{
     height: 1.3em;
+    width: 470px;
 }
+
+.text{
+    background: transparent;
+    border: transparent;
+    outline: none;
+    height: 1.3em;
+    width: 70px;
+    text-align: right;
+
+    font-weight: bold;
+}
+
+/* .previous-hash-output{
+    background-color: #62915c;
+} */
 
 .bloco{
     display: inline-block;
