@@ -1,7 +1,19 @@
 textarea{
-    min-width: 500px;
+    min-width: 470px;
 }
 
-#data-input{
-    min-height: 200px;
+.data-input{
+    height: 7em;
+
+}
+.nonce-output, .hash-output, .previous-hash-output, .assinatura-input{
+    height: 1.3em;
+}
+
+.bloco{
+    display: inline-block;
+    padding: 5px;
+    background-color: rgb(233, 233, 233);
+    border-radius: 5px;
+
 }
