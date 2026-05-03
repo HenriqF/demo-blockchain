@@ -3,6 +3,9 @@ const minerar_btn = document.querySelectorAll(".minerar-btn");
 const assinatura_input = document.getElementById("assinatura-input");
 const novo_bloco_btn = document.getElementById("novo-bloco-btn");
 
+const worker = new Worker('./worker.js', { type: 'module' });
+worker.onerror = e => console.error(e.message);
+
 var current_block_id = 1;
 
 function change_background_color(e, hash){
@@ -10,43 +13,45 @@ function change_background_color(e, hash){
     color = hash.substring(ass_length, ass_length+6);
 
     e.style.backgroundColor = `#${color}`
+    e.style.color = "#ffffff"
 }
 
-async function getSHA256(message) {
-    let b = new TextEncoder().encode(message);  
-    let hash = await crypto.subtle.digest('SHA-256', b);
-    let hash_a  = Array.from(new Uint8Array(hash));
-    let xhash = hash_a.map(b => b.toString(16).padStart(2, '0')).join('');
-    return xhash;
-}
-async function minerar(e) {
-    const current_block = e.currentTarget.id;
 
+function minerar(e){
+    document.querySelectorAll('button').forEach(b => {
+        b.disabled = true;
+    });
+
+    current_block =  e.currentTarget.id;
     any_previous_hash = document.querySelector(`#${CSS.escape(parseInt(current_block, 10)-1)} .hash-output`);
     if (any_previous_hash != null){
         document.querySelector(`#${CSS.escape(current_block)} .previous-hash-output`).value = any_previous_hash.value;
         change_background_color(document.querySelector(`#${CSS.escape(current_block)} .previous-hash-output`), any_previous_hash.value);
     }
-
-
-
-
     const previous_hash_value = document.querySelector(`#${CSS.escape(current_block)} .previous-hash-output`).value;
     const data_input = document.querySelector(`#${CSS.escape(current_block)} .data-input`).value;
-    var nonce = -1;
-    var hash = "";
 
-    do {
-        nonce += 1
-        hash = await getSHA256(nonce.toString()+data_input+previous_hash_value);
-    } while (!hash.startsWith(assinatura_input.value))
+
+    const dados = {
+        previous_hash_value: document.querySelector(`#${CSS.escape(current_block)} .previous-hash-output`).value,
+        data_input: document.querySelector(`#${CSS.escape(current_block)} .data-input`).value,
+        assinatura: assinatura_input.value,
+    }
+    worker.postMessage(dados);
+}
+worker.onmessage = e => {
+    const {hash, nonce} = e.data;
+
+    console.log("wow");
 
     document.querySelector(`#${CSS.escape(current_block)} .hash-output`).value = hash;
     change_background_color(document.querySelector(`#${CSS.escape(current_block)} .hash-output`), hash);
-
     document.querySelector(`#${CSS.escape(current_block)} .nonce-output`).value = nonce.toString();
-}
 
+    document.querySelectorAll('button').forEach(b => {
+        b.disabled = false;
+    });
+};
 
 
 
