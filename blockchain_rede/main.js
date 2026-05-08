@@ -5,7 +5,7 @@ const novo_bloco_btn = document.getElementById("novo-bloco-btn");
 const assinatura = "0000";
 
 
-const worker = new Worker('./worker.js', { type: 'module' });
+const worker = new Worker('../worker.js', { type: 'module' });
 worker.onerror = e => console.error(e.message);
 
 
@@ -18,6 +18,7 @@ function change_background_color(e, hash){
 }
 
 
+var current_block;
 function minerar(e){
     document.querySelectorAll('button').forEach(b => {
         b.disabled = true;
@@ -44,11 +45,19 @@ function minerar(e){
 worker.onmessage = e => {
     const {hash, nonce} = e.data;
 
-    console.log("wow");
-
     document.querySelector(`#${CSS.escape(current_block)} .hash-output`).value = hash;
     change_background_color(document.querySelector(`#${CSS.escape(current_block)} .hash-output`), hash);
     document.querySelector(`#${CSS.escape(current_block)} .nonce-output`).value = nonce.toString();
+
+    const letra = current_block[0];
+    const work_done_ta = document.getElementById(`${letra}work`);
+    const total_work = nonce + parseInt(work_done_ta.dataset.work);
+
+    work_done_ta.value = `Trabalho total: ${total_work}`;
+    work_done_ta.setAttribute('data-work', total_work);
+    
+
+
 
     document.querySelectorAll('button').forEach(b => {
         b.disabled = false;
