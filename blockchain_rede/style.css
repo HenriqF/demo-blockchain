@@ -1,5 +1,5 @@
 html{
-    width: 125%;
+    width: 100%;
 }
 
 textarea{
@@ -57,4 +57,14 @@ textarea{
     background-color: rgb(233, 233, 233);
     border-radius: 5px;
 
+}
+
+[data-broken="0"]{
+    padding: 15px;
+}
+
+[data-broken="1"]{
+    background-color: rgb(199, 198, 198);
+    border-radius: 5px;
+    padding: 15px;;
 }
