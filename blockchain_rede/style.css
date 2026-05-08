@@ -64,7 +64,7 @@ textarea{
 }
 
 [data-broken="1"]{
-    background-color: rgb(199, 198, 198);
+    background-color: rgb(255, 227, 227);
     border-radius: 5px;
     padding: 15px;;
 }
