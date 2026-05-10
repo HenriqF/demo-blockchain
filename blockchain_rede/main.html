@@ -27,11 +27,11 @@
         </template>
 
 
-
+    <button id="check" hidden>check</button>
     <div class="blockchain-container">
 
     
-        <div id="anode" data-broken="0" data-blocks="1">
+        <div id="anode" data-broken="0" data-blocks="1" data-fullblocks="0">
             <div class="bloco" id="a1">
                 <textarea disabled class="title">Bloco #a1</textarea>
                 <br>
@@ -53,7 +53,7 @@
         </div>
 
 
-        <div id="bnode" data-broken="0" data-blocks="1">
+        <div id="bnode" data-broken="0" data-blocks="1" data-fullblocks="0">
             <div class="bloco" id="b1">
                 <textarea disabled class="title">Bloco #b1</textarea>
                 <br>
@@ -75,7 +75,7 @@
         </div>
 
 
-        <div id="cnode" data-broken="0" data-blocks="1">
+        <div id="cnode" data-broken="0" data-blocks="1" data-fullblocks="0">
             <div class="bloco" id="c1">
                 <textarea disabled class="title">Bloco #c1</textarea>
                 <br>
@@ -88,6 +88,7 @@
                 <textarea disabled class="text">hash</textarea><textarea disabled class="hash-output" id="c1"></textarea>
                 <br>
                 <textarea disabled class="text"></textarea><button class="minerar-btn" id="c1">minerar</button>
+                
             </div>
             <br><br> 
 
@@ -96,7 +97,6 @@
             <input type="checkbox" id="csync" checked>
             <label for="csync">sincronizar</label>
         </div>
-
 
     </div> 
 
